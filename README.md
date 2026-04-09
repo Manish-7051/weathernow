@@ -52,12 +52,15 @@ Developed by **Manish Sharma**.
 
 ER Diagram — shows 7 entities (User, City, WeatherData, Forecast, AirQuality, ApiRequest, Language) with primary keys, attributes, data types, and relationships with cardinality.
 
-  <img width="2901" height="2001" alt="image" src="https://github.com/user-attachments/assets/664f6f35-8a67-4909-8fc0-57669e5a54a3" />
+<img width="2901" height="2001" alt="image" src="https://github.com/user-attachments/assets/664f6f35-8a67-4909-8fc0-57669e5a54a3" />
+
 
   
 Class Diagram — shows 8 classes (WeatherApp, WeatherService, UIRenderer, LanguageManager, WeatherData, ForecastData, AirQualityData, OpenWeatherMapAPI) with attributes, methods, and association/dependency/composition arrows.
 
-<img width="3261" height="2361" alt="image" src="https://github.com/user-attachments/assets/2b65ef56-ad0c-4ce1-bab7-88cfb8f512ad" />
+<img width="4706" height="3626" alt="image" src="https://github.com/user-attachments/assets/04c6a0bf-453b-408f-8534-627c7260ce06" />
+
+
 
 
 Use Case Diagram — shows all interactions between the User actor and the OpenWeatherMap API actor, including search, language switch, unit toggle, AQI view, forecast, and include/extend relationships for validation, error handling, and DOM updates.
