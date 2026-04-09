@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Weather App</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <h2>🌤️ <span id="app-title">WeatherNow</span></h2>
+            </div>
+            <div class="search-container">
+                <input type="text" id="city-input" placeholder="Search for a city..." autocomplete="off">
+                <button id="search-btn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                </button>
+            </div>
+            <div class="header-actions">
+                <button id="location-btn" class="icon-btn" title="Use Current Location">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"></polygon></svg>
+                </button>
+                <div class="language-selector">
+                    <select id="lang-select">
+                        <option value="en">English</option>
+                        <option value="hi">हिन्दी (Hindi)</option>
+                        <option value="bn">বাংলা (Bengali)</option>
+                        <option value="te">తెలుగు (Telugu)</option>
+                        <option value="mr">मराठी (Marathi)</option>
+                        <option value="ta">தமிழ் (Tamil)</option>
+                        <option value="ur">اردو (Urdu)</option>
+                        <option value="gu">ગુજરાતી (Gujarati)</option>
+                        <option value="kn">ಕನ್ನಡ (Kannada)</option>
+                        <option value="or">ଓଡ଼ିଆ (Odia)</option>
+                        <option value="ml">മലയാളം (Malayalam)</option>
+                        <option value="pa">ਪੰਜਾਬੀ (Punjabi)</option>
+                        <option value="as">অসমীয়া (Assamese)</option>
+                    </select>
+                </div>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <!-- Left Column: Current Weather & 5-Day Forecast -->
+            <div class="left-col">
+                <section class="card current-weather" id="current-weather-card">
+                    <div class="current-header">
+                        <h2 id="city-name" class="city-name">Loading...</h2>
+                        <span id="current-date" class="date">--</span>
+                    </div>
+                    <div class="current-body">
+                        <div class="weather-icon-temp">
+                            <img id="current-icon" src="" alt="Weather Icon" style="display: none;">
+                            <div class="temp-wrapper">
+                                <h1 id="current-temp" class="temp">--</h1>
+                                <span class="unit">°C</span>
+                            </div>
+                        </div>
+                        <div class="weather-desc">
+                            <h3 id="weather-condition">--</h3>
+                            <p id="feels-like-text">Feels like: <span id="feels-like">--</span>°C</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="card forecast-section">
+                    <h3 id="forecast-title" class="section-title">5-Day Forecast</h3>
+                    <div class="forecast-list" id="forecast-list">
+                        <!-- Forecast items injected via JS -->
+                        <div class="loader">Loading forecast...</div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Right Column: Today's Highlights -->
+            <div class="right-col">
+                <section class="highlights-section">
+                    <h3 id="highlights-title" class="section-title">Today's Highlights</h3>
+                    <div class="highlights-grid">
+                        
+                        <!-- Air Quality -->
+                        <div class="card highlight-card">
+                            <div class="card-header">
+                                <h4 id="aqi-title">Air Quality Index</h4>
+                                <span id="aqi-status" class="status-badge">--</span>
+                            </div>
+                            <div class="card-content aqi-content">
+                                <div class="icon-value">
+                                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"></path></svg>
+                                    <h2 id="aqi-value" class="value">--</h2>
+                                </div>
+                                <div class="aqi-components">
+                                    <div class="comp"><span>PM2.5</span><p id="pm25">--</p></div>
+                                    <div class="comp"><span>PM10</span><p id="pm10">--</p></div>
+                                    <div class="comp"><span>SO2</span><p id="so2">--</p></div>
+                                    <div class="comp"><span>NO2</span><p id="no2">--</p></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Wind -->
+                        <div class="card highlight-card">
+                            <h4 id="wind-title">Wind Info</h4>
+                            <div class="card-content icon-value">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"></path></svg>
+                                <div class="val-unit">
+                                    <h2 id="wind-speed" class="value">--</h2>
+                                    <span class="unit">m/s</span>
+                                </div>
+                            </div>
+                            <p id="wind-direction">Direction: <span id="wind-deg">--</span>°</p>
+                        </div>
+
+                        <!-- Sunrise/Sunset -->
+                        <div class="card highlight-card">
+                            <h4 id="sun-title">Sunrise & Sunset</h4>
+                            <div class="card-content sun-times">
+                                <div class="sun-item">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="M5 5l1.5 1.5"></path><path d="M17.5 17.5L19 19"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="M5 19l1.5-1.5"></path><path d="M17.5 6.5L19 5"></path></svg>
+                                    <div>
+                                        <span id="sunrise-title">Sunrise</span>
+                                        <p id="sunrise-time">--:--</p>
+                                    </div>
+                                </div>
+                                <div class="sun-item">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 18a5 5 0 0 0-10 0"></path><line x1="12" y1="2" x2="12" y2="9"></line><line x1="4.22" y1="10.22" x2="5.64" y2="11.64"></line><line x1="1" y1="18" x2="3" y2="18"></line><line x1="21" y1="18" x2="23" y2="18"></line><line x1="18.36" y1="11.64" x2="19.78" y2="10.22"></line><line x1="23" y1="22" x2="1" y2="22"></line><polyline points="8 6 12 2 16 6"></polyline></svg>
+                                    <div>
+                                        <span id="sunset-title">Sunset</span>
+                                        <p id="sunset-time">--:--</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Humidity -->
+                        <div class="card highlight-card small-card">
+                            <h4 id="humidity-title">Humidity</h4>
+                            <div class="card-content icon-value">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg>
+                                <div class="val-unit">
+                                    <h2 id="humidity-value" class="value">--</h2>
+                                    <span class="unit">%</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pressure -->
+                        <div class="card highlight-card small-card">
+                            <h4 id="pressure-title">Pressure</h4>
+                            <div class="card-content icon-value">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                                <div class="val-unit">
+                                    <h2 id="pressure-value" class="value">--</h2>
+                                    <span class="unit">hPa</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Visibility -->
+                        <div class="card highlight-card small-card">
+                            <h4 id="visibility-title">Visibility</h4>
+                            <div class="card-content icon-value">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                                <div class="val-unit">
+                                    <h2 id="visibility-value" class="value">--</h2>
+                                    <span class="unit">km</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+            </div>
+        </main>
+        
+        <footer class="app-footer">
+            <p>Developed by Manish Sharma</p>
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/manish-sharma-7a3516272" target="_blank" title="LinkedIn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                </a>
+                <a href="https://github.com/Manish-7051" target="_blank" title="GitHub">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                </a>
+                <a href="https://www.instagram.com/mjnyl_x?igsh=MWZmOHc0bmp3Nmp6aw==" target="_blank" title="Instagram">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                </a>
+            </div>
+        </footer>
+    </div>
+    <!-- Error Toast -->
+    <div id="error-toast" class="toast hidden">
+        <span id="error-msg">City not found.</span>
+    </div>
+
+    <script src="translations.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
